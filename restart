@@ -1,0 +1,6 @@
+#!/bin/bash
+git pull
+docker build -t havestatic:latest .
+docker stop $(docker ps | grep havestatic | awk '{ print $1 }')
+docker rm $(docker ps -a | grep havestatic | awk '{ print $1 }')
+docker run -d -p 9000:80 --name havestatic havestatic:latest
